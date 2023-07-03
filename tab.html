@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+</head>
+<body>
+  <div id="tabs">
+    <ul>
+      <li><a href="#tabs-1">Tab 1</a></li>
+    </ul>
+    <div id="tabs-1">
+      <table id="table-1">
+        <thead>
+          <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Value 1</td>
+            <td>Value 2</td>
+          </tr>
+          <tr>
+            <td>Value 1</td>
+            <td>Value 2</td>
+          </tr>
+          <tr>
+            <td>Value 1</td>
+            <td>Value 2</td>
+          </tr>
+          <tr>
+            <td>Value 1</td>
+            <td>Value 2</td>
+          </tr>
+          <tr>
+            <td>Value 1</td>
+            <td>Value 2</td>
+          </tr>
+          <tr>
+            <td>Value 1</td>
+            <td>Value 2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <button id="add-tab">Add Tab</button>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+  <script>
+    $(document).ready(function() {
+    	var table = $('#table-1').DataTable(
+                {
+                	orderCellsTop: true,
+                        fixedHeader: true,
+                        scrollX: true,
+                        order: [0, "asc"],
+                        columnDefs: [{
+                            orderable: true,
+                            targets: [0]
+                        }],
+                });
+  // Initialize tabs
+  $("#tabs").tabs();
+
+  // Add tab button click event
+  $("#add-tab").on("click", function() {
+    // Generate a unique tab ID
+    var tabId = "tabs-" + ($("#tabs ul li").length + 1);
+
+    // Add a new tab to the tab list
+    $("#tabs ul").append('<li><a href="#' + tabId + '">Tab ' + ($("#tabs ul li").length + 1) + '</a></li>');
+
+    // Create the content for the new tab
+    $("#tabs").append('<div id="' + tabId + '"><table id="table-' + ($("#tabs ul li").length) + '"><thead><tr><th>Column 1</th><th>Column 2</th></tr></thead><tbody><tr><td>Value 1</td><td>Value 2</td></tr><tr><td>Value 1</td><td>Value 2</td></tr><tr><td>Value 1</td><td>Value 2</td></tr><tr><td>Value 1</td><td>Value 2</td></tr><tr><td>Value 1</td><td>Value 2</td></tr><tr><td>Value 1</td><td>Value 2</td></tr></tbody></table></div>');
+
+    // Initialize DataTable for the new table
+    $("#table-" + ($("#tabs ul li").length)).DataTable({
+    	 orderCellsTop: true,
+                        fixedHeader: true,
+                        scrollX: true,
+                        order: [0, "asc"],
+                        columnDefs: [{
+                            orderable: true,
+                            targets: [0]
+                        }],
+    });
+
+    // Refresh the tabs widget
+    $("#tabs").tabs("refresh");
+  });
+});
+  </script>
+</body>
+</html>
